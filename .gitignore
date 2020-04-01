@@ -1,0 +1,10 @@
+# Spam & Trash
+*.pyc
+./tmp
+.ipynb_checkpoints
+.vscode
+__pycache__/
+
+# Data io
+source/*
+output/*
