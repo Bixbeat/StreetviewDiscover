@@ -39,6 +39,9 @@ You don't need an API key to query the availability of panoramas. The listed exa
 
 For a more complete example, see `download_svs.py`.
 
+### Viewing the SQLite database
+The best way to quickly see your data is by using the excellent [SQLite browser](https://sqlitebrowser.org/dl/). If you download the zip, you don't need to install any files either.
+
 ### Downloading stored pano-ids
 Get an API key from your [Google dashboard](https://console.cloud.google.com/google/maps-apis/overview), then, download them by passing the panorama id as reference to `api_download`.
 ```
