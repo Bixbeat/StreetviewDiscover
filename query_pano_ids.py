@@ -1,15 +1,18 @@
 from time import sleep
 from datetime import date
 from random import shuffle
+from pathlib import Path
 
 import streetview
 import geopandas as gpd
 import numpy as np
+import pandas as pd
 
 from lib.streetview_funcs import sample_pts_in_poly, store_panos_from_sample_pts
 from lib.sqlite_funcs import StreetviewDB
 
 ## Setup database
+Path('output').mkdir(exist_ok=True)
 sv_db_path = 'output/sv_imgs.sqlite'
 sv_db = StreetviewDB(sv_db_path)
 sv_db.make_region_table('postcodes', set_target=True)
@@ -31,5 +34,5 @@ for _,row in pc4_polys.iterrows():
     sample_pts = sample_pts_in_poly(row['geometry'], in_proj='epsg:28992')
     store_panos_from_sample_pts(sample_pts, row['postcode'], sv_db)
 
-## TODO: Saving recorded panoramas
-# streetview.api_download(panoid, heading, flat_dir, key)
+## Saving recorded panoramas
+# streetview.api_download('kPcPLJftVZ237Yz7TyB6tA', '', 'output/images/', '')
