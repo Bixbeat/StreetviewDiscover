@@ -41,7 +41,7 @@ def sample_pts_in_poly(poly_geom, n_samples=None, in_proj=None):
             # Reproject if defined
             if in_proj:
                 reproj_pt = transform(in_proj, out_proj, anchor_x, anchor_y)
-                sample_pt = [reproj_pt[0][0], reproj_pt[1][0]]
+                sample_pt = [reproj_pt[1][0], reproj_pt[0][0]]
             sample_pts.append(sample_pt)
     return sample_pts
 
@@ -58,9 +58,8 @@ def store_panos_from_sample_pts(sample_pts, subregion_name, sv_db):
         if len(entries) > 0:
             for entry in entries:
                 sv_db.add_entry(entry, manual_commit=True)
-                sv_db.db.commit()
-        sleep(0.05)
-
+            sv_db.db.commit()
+            sleep(0.01)
 
 def panos_from_coord_pair(sample_pt, subregion_name=''):
     """Get all panoramas with a date from a coordinate pair
