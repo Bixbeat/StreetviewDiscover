@@ -23,8 +23,8 @@ def sample_pts_in_poly(poly_geom, n_samples=None, in_proj=None):
     """    
     # Pre-define projections if needed
     if in_proj:
-        in_proj = Proj(init=in_proj)
-        out_proj = Proj(init='epsg:4326')    
+        in_proj = Proj(in_proj)
+        out_proj = Proj('epsg:4326')    
 
     if n_samples == None:
         area_in_km = poly_geom.area / 100000

@@ -153,7 +153,7 @@ class StreetviewDB(DatabaseHandler):
         except Exception as e:
             self.db.rollback()
             if 'UNIQUE constraint failed' in str(e):
-                print(f'Unique constraint failed for {entry["pano_id"]}')
+                print(f'Duplicate entry for pano {entry["pano_id"]} ignored.')
             else:
                 raise e
 

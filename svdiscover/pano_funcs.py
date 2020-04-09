@@ -66,19 +66,6 @@ def get_xy_timestats(xy_records, x_col, y_col):
                         num_timesteps])
     return xy_stats
 
-def export_to_csv(out_filepath, record_list, header=None):
-    """Simple utility to export SQLite records to a CSV
-    
-    Arguments:
-        out_filepath {str} -- Filepath+name of output file
-        record_list {list} -- List of lists containing SQLite database records
-    """    
-    with open(out_filepath, "w") as f:
-        writer = csv.writer(f)
-        if header:
-            writer.writerow(header)
-        writer.writerows(record_list)
-
 # def plot_anchor_timediff(records, centerpoint, zoom=5):
 #     map_obj = folium.Map(
 #         location=centerpoint,
