@@ -1,28 +1,32 @@
-from time import sleep
-from datetime import date
+""""
+Example code on how to query panorama ids
+
+Sample data used are 4-digit post codes around the city center of Amsterdam,
+Derived from the Dutch Statistics Office (CBS, 2017)
+https://www.pdok.nl/introductie/-/article/cbs-postcode-statistieken
+"""
 from random import shuffle
 from pathlib import Path
 
 import streetview
 import geopandas as gpd
-import numpy as np
-import pandas as pd
 
-from lib.streetview_funcs import sample_pts_in_poly, store_panos_from_sample_pts
-from lib.sqlite_funcs import StreetviewDB
+from svdiscover.sampling import sample_pts_in_poly, store_panos_from_sample_pts
+from svdiscover.database import StreetviewDB
 
-## Setup database
+## Setup database & table
 Path('output').mkdir(exist_ok=True)
 sv_db_path = 'output/sv_imgs.sqlite'
+
 sv_db = StreetviewDB(sv_db_path)
-sv_db.make_region_table('postcodes', set_target=True)
+sv_db.make_region_table('postcodes_ams', set_target=True)
 
 ## Load target geometries
-pc4_file = 'source/pc4_2018.geojson'
+pc4_file = 'examples/geodata/postcodes_ams.geojson'
 pc4_polys = gpd.read_file(pc4_file)
-pc4_polys = pc4_polys.sample(frac=1).reset_index(drop=True)
+pc4_polys = pc4_polys.sample(frac=1).reset_index(drop=True) # Randomly sample polygons
 
-## Get finished geometries from database
+## Get previously-queried regions from database
 recorded_pcs = list(set([rec[0] for rec in sv_db.get_records()]))
 
 for _,row in pc4_polys.iterrows():
@@ -33,6 +37,3 @@ for _,row in pc4_polys.iterrows():
 
     sample_pts = sample_pts_in_poly(row['geometry'], in_proj='epsg:28992')
     store_panos_from_sample_pts(sample_pts, row['postcode'], sv_db)
-
-## Saving recorded panoramas
-# streetview.api_download('kPcPLJftVZ237Yz7TyB6tA', '', 'output/images/', '')
