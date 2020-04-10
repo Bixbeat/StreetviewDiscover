@@ -5,11 +5,11 @@ def readme():
         return f.read()
 
 setup(
-    name='streetview-discover',
+    name='streetviewdiscover',
     version='0.1',
     description='Simple functions for discovering current and historic Google Streetview panorama IDs in polygons of a given region',
     long_description=readme(),
-    url='https://github.com/Bixbeat/streetview-discover',
+    url='https://github.com/Bixbeat/streetviewdiscover',
     author='Alex Levering',
     author_email='alex.levering@wur.nl',
     license='MIT',
